@@ -385,44 +385,119 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:#B8C8DF;oversc
     <div class="sbar-i"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
   </div>
 
-  <!-- ══ LOGIN ══ -->
-  <div class="scr on" id="s-login">
-    <div class="login-bg">
-      <div class="logo-row">
-        <div class="logo-box">🦶</div>
-        <div><div class="logo-t">FootGuard</div><div class="logo-s">Diabetic Foot Platform</div></div>
-      </div>
-      <div class="login-hero">
-        <div style="font-size:3rem;margin-bottom:8px;">🦶</div>
-        <h2>Who are you logging in as?</h2>
-        <p>Enter your details to access your dashboard.</p>
-      </div>
-      <div class="role-row">
-        <div class="role-c sel" id="rc-pat" onclick="selectRole('patient')">
-          <div class="role-icon">🧑‍🦳</div>
-          <div class="role-t">Patient</div>
-          <div class="role-s">Log daily checks & connect with your doctor</div>
-        </div>
-        <div class="role-c" id="rc-doc" onclick="selectRole('doctor')">
-          <div class="role-icon">👨‍⚕️</div>
-          <div class="role-t">Doctor</div>
-          <div class="role-s">Monitor patients & review alerts</div>
-        </div>
-      </div>
-      <div class="glass">
-        <h4 id="form-title">🧑‍🦳 Patient Sign In</h4>
-        <input class="oinp" id="inp-name" placeholder="Full Name" autocomplete="name">
-        <input class="oinp" id="inp-email" type="email" placeholder="Email address" autocomplete="email">
-        <input class="oinp" id="inp-pass" type="password" placeholder="Password" autocomplete="current-password">
-        <div class="err-msg" id="login-err" style="display:none;"></div>
-        <button class="btn" onclick="doLogin()" style="margin-top:6px;" id="login-btn">Sign In →</button>
-      </div>
-
-      <div class="divrow" style="margin-top:10px;"><span>demo accounts</span></div>
+  <!-- ══ SPLASH ══ -->
+  <div class="scr on" id="s-splash">
+    <div class="login-bg" style="justify-content:center;align-items:center;text-align:center;">
+      <div style="font-size:4rem;margin-bottom:12px;">🦶</div>
+      <div style="color:#fff;font-family:'DM Serif Display',serif;font-size:1.8rem;line-height:1.3;margin-bottom:8px;">FootGuard</div>
+      <div style="color:var(--mint-m);font-size:.75rem;margin-bottom:48px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Diabetic Foot Platform</div>
+      <button class="btn" onclick="goTo('s-login')" style="margin-bottom:12px;">Sign In</button>
+      <button class="btn btn-out" onclick="goTo('s-signup')">Create Account</button>
+      <div class="divrow" style="margin-top:18px;"><span>demo accounts</span></div>
       <div class="demo-row">
         <div class="demo-b" onclick="demoLogin('patient')"><span>🧑‍🦳</span><small>Patient Demo</small></div>
         <div class="demo-b" onclick="demoLogin('doctor')"><span>👨‍⚕️</span><small>Doctor Demo</small></div>
-        <div class="demo-b" onclick="showSupaSetup()"><span>🗄️</span><small>DB Setup</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LOGIN ══ -->
+  <div class="scr" id="s-login">
+    <div class="login-bg">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;cursor:pointer;" onclick="goTo('s-splash')">
+        <span style="color:var(--mint-m);font-size:1.2rem;">‹</span>
+        <span style="color:var(--mint-m);font-size:.75rem;font-weight:600;">Back</span>
+      </div>
+      <div class="logo-row" style="margin-bottom:18px;">
+        <div class="logo-box">🦶</div>
+        <div><div class="logo-t">Welcome back</div><div class="logo-s">Sign in to your account</div></div>
+      </div>
+
+      <!-- Role toggle -->
+      <div class="role-row" style="margin-bottom:16px;">
+        <div class="role-c sel" id="li-rc-pat" onclick="selectLoginRole('patient')">
+          <div class="role-icon">🧑‍🦳</div>
+          <div class="role-t">Patient</div>
+        </div>
+        <div class="role-c" id="li-rc-doc" onclick="selectLoginRole('doctor')">
+          <div class="role-icon">👨‍⚕️</div>
+          <div class="role-t">Doctor</div>
+        </div>
+      </div>
+
+      <div class="glass">
+        <h4 id="li-form-title" style="margin-bottom:12px;">🧑‍🦳 Patient Sign In</h4>
+        <input class="oinp" id="li-email" type="email" placeholder="Email address" autocomplete="email">
+        <input class="oinp" id="li-pass" type="password" placeholder="Password" autocomplete="current-password">
+        <div class="err-msg" id="li-err" style="display:none;margin-bottom:6px;"></div>
+        <button class="btn" onclick="doLogin()" style="margin-top:6px;" id="li-btn">Sign In →</button>
+      </div>
+
+      <div style="text-align:center;margin-top:14px;">
+        <span style="color:rgba(255,255,255,.5);font-size:.72rem;">Don't have an account? </span>
+        <span style="color:var(--mint);font-size:.72rem;font-weight:700;cursor:pointer;" onclick="goTo('s-signup')">Create one →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SIGN UP ══ -->
+  <div class="scr" id="s-signup">
+    <div class="login-bg">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;cursor:pointer;" onclick="goTo('s-splash')">
+        <span style="color:var(--mint-m);font-size:1.2rem;">‹</span>
+        <span style="color:var(--mint-m);font-size:.75rem;font-weight:600;">Back</span>
+      </div>
+      <div class="logo-row" style="margin-bottom:18px;">
+        <div class="logo-box">🦶</div>
+        <div><div class="logo-t">Create Account</div><div class="logo-s">Join FootGuard today</div></div>
+      </div>
+
+      <!-- Role toggle -->
+      <div class="role-row" style="margin-bottom:16px;">
+        <div class="role-c sel" id="su-rc-pat" onclick="selectSignupRole('patient')">
+          <div class="role-icon">🧑‍🦳</div>
+          <div class="role-t">Patient</div>
+          <div class="role-s">I want to track my foot health</div>
+        </div>
+        <div class="role-c" id="su-rc-doc" onclick="selectSignupRole('doctor')">
+          <div class="role-icon">👨‍⚕️</div>
+          <div class="role-t">Doctor</div>
+          <div class="role-s">I want to monitor patients</div>
+        </div>
+      </div>
+
+      <div class="glass">
+        <h4 id="su-form-title" style="margin-bottom:12px;">🧑‍🦳 New Patient Account</h4>
+        <input class="oinp" id="su-name" placeholder="Full Name" autocomplete="name">
+        <input class="oinp" id="su-email" type="email" placeholder="Email address" autocomplete="email">
+        <input class="oinp" id="su-pass" type="password" placeholder="Password (min 6 characters)" autocomplete="new-password">
+        <input class="oinp" id="su-pass2" type="password" placeholder="Confirm password" autocomplete="new-password">
+
+        <!-- Patient-only fields -->
+        <div id="su-patient-fields">
+          <input class="oinp" id="su-dob" type="date" placeholder="Date of birth" style="color:rgba(255,255,255,.7);">
+          <select class="oinp" id="su-diabtype" style="color:rgba(255,255,255,.7);background:rgba(255,255,255,.14);">
+            <option value="" disabled selected style="color:#333;">Diabetes Type</option>
+            <option value="Type 1" style="color:#333;">Type 1</option>
+            <option value="Type 2" style="color:#333;">Type 2</option>
+            <option value="Gestational" style="color:#333;">Gestational</option>
+            <option value="Pre-diabetic" style="color:#333;">Pre-diabetic</option>
+          </select>
+        </div>
+
+        <!-- Doctor-only fields -->
+        <div id="su-doctor-fields" style="display:none;">
+          <input class="oinp" id="su-clinic" placeholder="Clinic / Hospital name">
+          <input class="oinp" id="su-license" placeholder="Medical License Number">
+        </div>
+
+        <div class="err-msg" id="su-err" style="display:none;margin-bottom:6px;"></div>
+        <button class="btn" onclick="doSignup()" style="margin-top:6px;" id="su-btn">Create Account →</button>
+      </div>
+
+      <div style="text-align:center;margin-top:14px;">
+        <span style="color:rgba(255,255,255,.5);font-size:.72rem;">Already have an account? </span>
+        <span style="color:var(--mint);font-size:.72rem;font-weight:700;cursor:pointer;" onclick="goTo('s-login')">Sign in →</span>
       </div>
     </div>
   </div>
@@ -1023,37 +1098,115 @@ async function trackLogin(email,role){
 }
 
 /* ═══════════════════════════════════════
-   LOGIN
+   LOGIN / SIGNUP
 ═══════════════════════════════════════ */
-let selRole='patient';
-function selectRole(r){
-  selRole=r;
-  document.getElementById('rc-pat').classList.toggle('sel',r==='patient');
-  document.getElementById('rc-doc').classList.toggle('sel',r==='doctor');
-  document.getElementById('form-title').textContent=r==='patient'?'🧑‍🦳 Patient Sign In':'👨‍⚕️ Doctor Sign In';
+let selLoginRole='patient';
+let selSignupRole='patient';
+
+function selectLoginRole(r){
+  selLoginRole=r;
+  document.getElementById('li-rc-pat').classList.toggle('sel',r==='patient');
+  document.getElementById('li-rc-doc').classList.toggle('sel',r==='doctor');
+  document.getElementById('li-form-title').textContent=r==='patient'?'🧑‍🦳 Patient Sign In':'👨‍⚕️ Doctor Sign In';
 }
+function selectSignupRole(r){
+  selSignupRole=r;
+  document.getElementById('su-rc-pat').classList.toggle('sel',r==='patient');
+  document.getElementById('su-rc-doc').classList.toggle('sel',r==='doctor');
+  document.getElementById('su-form-title').textContent=r==='patient'?'🧑‍🦳 New Patient Account':'👨‍⚕️ New Doctor Account';
+  document.getElementById('su-patient-fields').style.display=r==='patient'?'':'none';
+  document.getElementById('su-doctor-fields').style.display=r==='doctor'?'':'none';
+}
+
+/* ── SIGN IN ── */
 async function doLogin(){
-  const name=document.getElementById('inp-name').value.trim();
-  const email=document.getElementById('inp-email').value.trim();
-  const pass=document.getElementById('inp-pass').value;
-  if(!name){showErr('Please enter your full name.');return;}
-  if(!email||!email.includes('@')){showErr('Please enter a valid email address.');return;}
-  if(pass.length<6){showErr('Password must be at least 6 characters.');return;}
-  document.getElementById('login-err').style.display='none';
-  S.user={name,email};S.role=selRole;
-  await trackLogin(email,selRole);
-  loginAs(selRole,name);
+  const email=document.getElementById('li-email').value.trim();
+  const pass=document.getElementById('li-pass').value;
+  const errEl=document.getElementById('li-err');
+  const btn=document.getElementById('li-btn');
+  errEl.style.display='none';
+  if(!email||!email.includes('@')){showAuthErr(errEl,'Please enter a valid email.');return;}
+  if(pass.length<6){showAuthErr(errEl,'Password must be at least 6 characters.');return;}
+  btn.textContent='Signing in…';btn.disabled=true;
+  const db=getDb();
+  if(db){
+    try{
+      const{data,error}=await db.auth.signInWithPassword({email,password:pass});
+      if(error){showAuthErr(errEl,error.message);btn.textContent='Sign In →';btn.disabled=false;return;}
+      const name=data.user.user_metadata?.name||email.split('@')[0];
+      const role=data.user.user_metadata?.role||selLoginRole;
+      await trackLogin(email,role);
+      S.user={name,email,id:data.user.id};S.role=role;
+      btn.textContent='Sign In →';btn.disabled=false;
+      loginAs(role,name);
+    }catch(e){showAuthErr(errEl,'Something went wrong. Try again.');btn.textContent='Sign In →';btn.disabled=false;}
+  } else {
+    // offline demo fallback
+    S.user={name:email.split('@')[0],email};S.role=selLoginRole;
+    btn.textContent='Sign In →';btn.disabled=false;
+    loginAs(selLoginRole,S.user.name);
+  }
 }
-function showErr(msg){const e=document.getElementById('login-err');e.textContent=msg;e.style.display='block';}
+
+/* ── SIGN UP ── */
+async function doSignup(){
+  const name=document.getElementById('su-name').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const pass=document.getElementById('su-pass').value;
+  const pass2=document.getElementById('su-pass2').value;
+  const errEl=document.getElementById('su-err');
+  const btn=document.getElementById('su-btn');
+  errEl.style.display='none';
+  if(!name){showAuthErr(errEl,'Please enter your full name.');return;}
+  if(!email||!email.includes('@')){showAuthErr(errEl,'Please enter a valid email.');return;}
+  if(pass.length<6){showAuthErr(errEl,'Password must be at least 6 characters.');return;}
+  if(pass!==pass2){showAuthErr(errEl,'Passwords do not match.');return;}
+  if(selSignupRole==='patient'){
+    if(!document.getElementById('su-dob').value){showAuthErr(errEl,'Please enter your date of birth.');return;}
+    if(!document.getElementById('su-diabtype').value){showAuthErr(errEl,'Please select your diabetes type.');return;}
+  }
+  if(selSignupRole==='doctor'){
+    if(!document.getElementById('su-clinic').value.trim()){showAuthErr(errEl,'Please enter your clinic name.');return;}
+    if(!document.getElementById('su-license').value.trim()){showAuthErr(errEl,'Please enter your license number.');return;}
+  }
+  btn.textContent='Creating account…';btn.disabled=true;
+  const db=getDb();
+  if(db){
+    try{
+      const meta={name,role:selSignupRole};
+      if(selSignupRole==='patient'){
+        meta.dob=document.getElementById('su-dob').value;
+        meta.diabetes_type=document.getElementById('su-diabtype').value;
+      } else {
+        meta.clinic=document.getElementById('su-clinic').value.trim();
+        meta.license=document.getElementById('su-license').value.trim();
+      }
+      const{data,error}=await db.auth.signUp({email,password:pass,options:{data:meta}});
+      if(error){showAuthErr(errEl,error.message);btn.textContent='Create Account →';btn.disabled=false;return;}
+      // upsert profile row
+      if(data.user){
+        await db.from('profiles').upsert({id:data.user.id,name,role:selSignupRole},{onConflict:'id'});
+        await trackLogin(email,selSignupRole);
+      }
+      btn.textContent='Create Account →';btn.disabled=false;
+      S.user={name,email,id:data.user?.id};S.role=selSignupRole;
+      showToast('🎉 Account created! Welcome, '+name.split(' ')[0]+'!');
+      loginAs(selSignupRole,name);
+    }catch(e){showAuthErr(errEl,'Something went wrong. Try again.');btn.textContent='Create Account →';btn.disabled=false;}
+  } else {
+    btn.textContent='Create Account →';btn.disabled=false;
+    S.user={name,email};S.role=selSignupRole;
+    showToast('🎉 Welcome, '+name.split(' ')[0]+'!');
+    loginAs(selSignupRole,name);
+  }
+}
+
+function showAuthErr(el,msg){el.textContent=msg;el.style.display='block';}
+function showErr(msg){showAuthErr(document.getElementById('li-err'),msg);}
 
 function demoLogin(r){
-  selRole=r;
-  document.getElementById('inp-name').value=r==='patient'?'Margaret Chen':'Dr. Rohan Patel';
-  document.getElementById('inp-email').value=r==='patient'?'margaret@email.com':'rohan.patel@clinic.com';
-  document.getElementById('inp-pass').value='demo1234';
-  document.getElementById('login-err').style.display='none';
-  S.user={name:document.getElementById('inp-name').value,email:document.getElementById('inp-email').value};
-  S.role=r;selectRole(r);
+  S.user={name:r==='patient'?'Margaret Chen':'Dr. Rohan Patel',email:r==='patient'?'margaret@email.com':'rohan.patel@clinic.com'};
+  S.role=r;
   trackLogin(S.user.email,r);
   loginAs(r,S.user.name);
 }
