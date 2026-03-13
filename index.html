@@ -1089,11 +1089,11 @@ function getDb(){
   }
   return window._fgDb||null;
 }
-async function trackLogin(email,role){
+async function trackLogin(email,role,name,login_type){
   try{
     const db=getDb();
     if(!db)return;
-    await db.from('login_events').insert({email,role});
+    await db.from('login_events').insert({email,role,name:name||null,login_type:login_type||'signin'});
   }catch(e){console.warn('Track login failed:',e);}
 }
 
@@ -1135,7 +1135,10 @@ async function doLogin(){
       if(error){showAuthErr(errEl,error.message);btn.textContent='Sign In →';btn.disabled=false;return;}
       const name=data.user.user_metadata?.name||email.split('@')[0];
       const role=data.user.user_metadata?.role||selLoginRole;
-      await trackLogin(email,role);
+      // Track login event
+      await trackLogin(email,role,name,'signin');
+      // Upsert profile now that session is confirmed and active
+      await db.from('profiles').upsert({id:data.user.id,name,role},{onConflict:'id'});
       S.user={name,email,id:data.user.id};S.role=role;
       btn.textContent='Sign In →';btn.disabled=false;
       loginAs(role,name);
@@ -1183,15 +1186,26 @@ async function doSignup(){
       }
       const{data,error}=await db.auth.signUp({email,password:pass,options:{data:meta}});
       if(error){showAuthErr(errEl,error.message);btn.textContent='Create Account →';btn.disabled=false;return;}
-      // upsert profile row
+      // Track signup in login_events immediately (works without confirmed session)
       if(data.user){
-        await db.from('profiles').upsert({id:data.user.id,name,role:selSignupRole},{onConflict:'id'});
-        await trackLogin(email,selSignupRole);
+        await trackLogin(email,selSignupRole,name,'signup');
       }
       btn.textContent='Create Account →';btn.disabled=false;
-      S.user={name,email,id:data.user?.id};S.role=selSignupRole;
-      showToast('🎉 Account created! Welcome, '+name.split(' ')[0]+'!');
-      loginAs(selSignupRole,name);
+      // Show confirmation email notice instead of logging in directly
+      showAuthErr(errEl,'');
+      errEl.style.display='none';
+      document.getElementById('su-btn').style.display='none';
+      document.querySelector('#s-signup .glass').innerHTML=`
+        <div style="text-align:center;padding:10px 0;">
+          <div style="font-size:2.5rem;margin-bottom:10px;">✉️</div>
+          <div style="color:#fff;font-weight:700;font-size:.9rem;margin-bottom:8px;">Check your email!</div>
+          <div style="color:rgba(255,255,255,.7);font-size:.75rem;line-height:1.6;">
+            We sent a confirmation link to<br>
+            <strong style="color:var(--mint);">\${email}</strong><br><br>
+            Click the link to activate your account, then come back and sign in.
+          </div>
+          <button class="btn btn-out" onclick="goTo('s-login')" style="margin-top:16px;">Go to Sign In</button>
+        </div>`;
     }catch(e){showAuthErr(errEl,'Something went wrong. Try again.');btn.textContent='Create Account →';btn.disabled=false;}
   } else {
     btn.textContent='Create Account →';btn.disabled=false;
